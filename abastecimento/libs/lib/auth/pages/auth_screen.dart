@@ -1,5 +1,5 @@
-import 'package:abastecimento/lib/auth/components/input.dart';
-import 'package:abastecimento/lib/home/screens/home_screen.dart';
+import 'package:abastecimento/auth/components/input.dart';
+import 'package:abastecimento/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatelessWidget {

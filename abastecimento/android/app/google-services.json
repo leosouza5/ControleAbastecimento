@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "254828299957",
+    "project_id": "controle-abastecimento-f1309",
+    "storage_bucket": "controle-abastecimento-f1309.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254828299957:android:cbabb8e77805e2eef7e0fc",
+        "android_client_info": {
+          "package_name": "com.example.abastecimento"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsZzQMsF-vTgQucGebu3RynTILMEfseNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

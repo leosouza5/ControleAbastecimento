@@ -1,4 +1,4 @@
-import 'package:abastecimento/lib/util/drawer_default.dart';
+import '../../util/drawer_default.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

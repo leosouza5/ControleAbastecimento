@@ -4,15 +4,18 @@ import 'package:flutter/services.dart';
 class Input extends StatefulWidget {
   final String? hint;
   final TextStyle? hintStyle;
+
   final Text? label;
   final bool senha;
   final bool enabled;
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
+  final void Function()? onTap;
+  final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Color? borderColor;
-  const Input({super.key, this.label, this.hint, this.hintStyle, this.borderColor, this.senha = false, this.controller, this.validator, this.enabled = true, this.initialValue, this.inputFormatters});
+  const Input({super.key, this.label, this.hint, this.hintStyle, this.borderColor, this.senha = false, this.controller, this.validator, this.enabled = true, this.initialValue, this.inputFormatters, this.keyboardType, this.onTap});
 
   @override
   State<Input> createState() => _InputState();
@@ -24,6 +27,8 @@ class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: widget.onTap,
+      keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       initialValue: widget.initialValue,
       validator: widget.validator,

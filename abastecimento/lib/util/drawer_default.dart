@@ -1,13 +1,35 @@
-import 'package:abastecimento/lib/abastecimento/screens/abastecimentos.dart';
-import 'package:abastecimento/lib/cars/screens/cars.dart';
-import 'package:abastecimento/lib/cars/screens/new_car.dart';
+import 'package:abastecimento/auth/pages/auth_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../abastecimento/screens/abastecimentos.dart';
+import '../cars/screens/cars.dart';
+import '../cars/screens/new_car.dart';
 
 class DrawerDefault extends StatelessWidget {
   const DrawerDefault({super.key});
 
+  Future<void> logout(BuildContext context) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+
+    try {
+      await _auth.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AuthScreen()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao fazer logout: $e')),
+      );
+    }
+  }
+
   @override
   Drawer build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser; // Obtem o usuário autenticado
+    final email = user?.email ?? 'Usuário não identificado'; // Obtem o email ou uma mensagem padrão
+
     return Drawer(
       child: ListView(
         children: [
@@ -24,6 +46,11 @@ class DrawerDefault extends StatelessWidget {
                 Text(
                   'Bem-vindo!',
                   style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  email, // Exibe o email do usuário
+                  style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],
             ),
@@ -75,7 +102,9 @@ class DrawerDefault extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout, color: Theme.of(context).primaryColor),
             title: Text('Sair'),
-            onTap: () {},
+            onTap: () {
+              logout(context);
+            },
           ),
         ],
       ),
