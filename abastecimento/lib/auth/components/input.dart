@@ -35,20 +35,20 @@ class _InputState extends State<Input> {
       controller: widget.controller,
       obscureText: widget.senha && obscure,
       cursorColor: widget.borderColor,
-      style: TextStyle(fontSize: 20, color: widget.borderColor),
+      style: TextStyle(fontSize: 20, color: Color(0xFFE0E0E0)),
       decoration: InputDecoration(
         enabled: widget.enabled,
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.borderColor ?? Theme.of(context).colorScheme.onSurface),
+          borderSide: BorderSide(color: widget.borderColor ?? Color(0xFF2C2C2C)),
         ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.borderColor ?? Theme.of(context).colorScheme.onSurface),
+          borderSide: BorderSide(color: widget.borderColor ?? Color(0xFF2C2C2C)),
         ),
         disabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.borderColor ?? Theme.of(context).colorScheme.onSurface),
+          borderSide: BorderSide(color: widget.borderColor ?? Color(0xFF2C2C2C)),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.borderColor ?? Theme.of(context).colorScheme.onSurface),
+          borderSide: BorderSide(color: widget.borderColor ?? Color(0xFF2C2C2C)),
         ),
         hintText: widget.hint,
         suffixIcon: widget.senha
@@ -60,14 +60,14 @@ class _InputState extends State<Input> {
                 },
                 icon: Icon(
                   obscure ? Icons.visibility : Icons.visibility_off,
-                  color: widget.borderColor,
+                  color: Color(0xFFE0E0E0),
                 ))
             : null,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         label: widget.label,
         hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(.5)),
-        labelStyle: TextStyle(fontSize: 20, color: widget.borderColor),
+        labelStyle: TextStyle(fontSize: 20, color: Color(0xFFE0E0E0)),
       ),
     );
   }

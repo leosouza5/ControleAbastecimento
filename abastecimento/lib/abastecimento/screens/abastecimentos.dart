@@ -1,3 +1,4 @@
+import 'package:abastecimento/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,8 @@ class _AbastecimentosState extends State<Abastecimentos> {
     final controller = context.watch<AbastecimentoController>();
 
     return Scaffold(
+      backgroundColor: fundoPrincipal,
+      drawerScrimColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(
@@ -34,60 +37,76 @@ class _AbastecimentosState extends State<Abastecimentos> {
             MaterialPageRoute(builder: (context) => NovoAbastecimento()),
           );
         },
-        child: Icon(Icons.add),
+        backgroundColor: botoesDestaque,
+        child: Icon(
+          Icons.add,
+          color: textoPrincipal,
+        ),
         tooltip: 'Novo Abastecimento',
       ),
       drawer: DrawerDefault(),
       appBar: AppBar(
-        title: Text('Histórico de Abastecimentos'),
+        iconTheme: IconThemeData(color: textoPrincipal),
+        backgroundColor: fundoPrincipal,
+        title: Text(
+          'Histórico de Abastecimentos',
+          style: TextStyle(color: textoPrincipal),
+        ),
       ),
-      body: Builder(
-        builder: (context) {
-          switch (controller.listaAbastecimentosState) {
-            case LocalState.loading:
-              return Center(child: CircularProgressIndicator());
+      body: Container(
+        color: fundoPrincipal,
+        child: Builder(
+          builder: (context) {
+            switch (controller.listaAbastecimentosState) {
+              case LocalState.loading:
+                return Center(child: CircularProgressIndicator());
 
-            case LocalState.sucesso:
-              if (controller.abastecimentos.isEmpty) {
-                return Center(
-                  child: Text(
-                    'Nenhum abastecimento registrado.',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                );
-              }
-              return ListView.builder(
-                itemCount: controller.abastecimentos.length,
-                itemBuilder: (context, index) {
-                  final abastecimento = controller.abastecimentos[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: ListTile(
-                      title: Text(
-                        'Veículo: ${abastecimento['vehicleName']} - ${abastecimento['vehicleModel']}',
-                      ),
-                      subtitle: Text(
-                        'Data: ${abastecimento['data']}\n'
-                        'Litros: ${abastecimento['litros']} | Quilometragem: ${abastecimento['quilometragem']}',
-                      ),
+              case LocalState.sucesso:
+                if (controller.abastecimentos.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'Nenhum abastecimento registrado.',
+                      style: TextStyle(fontSize: 16, color: textoPrincipal),
                     ),
                   );
-                },
-              );
+                }
+                return ListView.builder(
+                  itemCount: controller.abastecimentos.length,
+                  itemBuilder: (context, index) {
+                    final abastecimento = controller.abastecimentos[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        tileColor: fundoSecundaria,
+                        title: Text(
+                          'Veículo: ${abastecimento['vehicleName']} - ${abastecimento['vehicleModel']}',
+                          style: TextStyle(color: textoPrincipal),
+                        ),
+                        subtitle: Text(
+                          'Data: ${abastecimento['data']}\n'
+                          'Litros: ${abastecimento['litros']} | Quilometragem: ${abastecimento['quilometragem']}',
+                          style: TextStyle(color: textoPrincipal),
+                        ),
+                      ),
+                    );
+                  },
+                );
 
-            case LocalState.error:
-              return Center(
-                child: Text(
-                  'Erro ao carregar abastecimentos.',
-                  style: TextStyle(fontSize: 16, color: Colors.red),
-                ),
-              );
+              case LocalState.error:
+                return Center(
+                  child: Text(
+                    'Erro ao carregar abastecimentos.',
+                    style: TextStyle(fontSize: 16, color: Colors.red),
+                  ),
+                );
 
-            case LocalState.idle:
-            default:
-              return SizedBox.shrink();
-          }
-        },
+              case LocalState.idle:
+              default:
+                return SizedBox.shrink();
+            }
+          },
+        ),
       ),
     );
   }

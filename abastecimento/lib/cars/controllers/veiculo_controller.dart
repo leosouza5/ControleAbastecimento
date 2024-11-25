@@ -15,15 +15,12 @@ class VeiculoController extends ChangeNotifier {
     try {
       final userId = FirebaseAuth.instance.currentUser!.uid;
 
-      // Recupera os abastecimentos do veículo
       final refuelsSnapshot = await _firestore.collection('users').doc(userId).collection('vehicles').doc(vehicleId).collection('refuels').orderBy('data', descending: true).get();
 
       if (refuelsSnapshot.docs.length < 2) {
-        // Retorna mensagem caso não tenha dados suficientes
         return "Abastecimentos insuficientes";
       }
 
-      // Recupera os dois abastecimentos mais recentes
       final currentRefuel = refuelsSnapshot.docs.first.data();
       final previousRefuel = refuelsSnapshot.docs[1].data();
 
@@ -31,7 +28,6 @@ class VeiculoController extends ChangeNotifier {
       final int quilometragemAtual = currentRefuel['quilometragem'];
       final int quilometragemAnterior = previousRefuel['quilometragem'];
 
-      // Calcula a média de consumo
       final media = (quilometragemAtual - quilometragemAnterior) / litros;
 
       return "${media.toStringAsFixed(2)} km/L";

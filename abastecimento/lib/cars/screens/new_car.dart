@@ -1,3 +1,5 @@
+import 'package:abastecimento/cars/screens/cars.dart';
+import 'package:abastecimento/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,65 +54,85 @@ class _NewCarState extends State<NewCar> {
     final controller = context.read<VeiculoController>();
 
     return Scaffold(
+      backgroundColor: fundoPrincipal,
       appBar: AppBar(
-        title: Text(widget.vehicleId == null ? 'Cadastro de Veículo' : 'Edição de Veículo'),
+        iconTheme: IconThemeData(color: textoPrincipal),
+        backgroundColor: fundoPrincipal,
+        leading: BackButton(
+          onPressed: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Cars(),
+              )),
+        ),
+        title: Text(
+          widget.vehicleId == null ? 'Cadastro de Veículo' : 'Edição de Veículo',
+          style: TextStyle(color: textoPrincipal),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  'Média de Consumo: ${mediaConsumo ?? "Calculando..."}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16),
-                Input(
-                  label: Text('Nome'),
-                  controller: _nomeController,
-                  validator: (value) => value!.isEmpty ? 'Por favor, insira o nome do veículo' : null,
-                ),
-                Input(
-                  label: Text('Modelo'),
-                  controller: _modeloController,
-                  validator: (value) => value!.isEmpty ? 'Por favor, insira o modelo do veículo' : null,
-                ),
-                Input(
-                  label: Text('Ano'),
-                  controller: _anoController,
-                  validator: (value) => value!.isEmpty ? 'Por favor, insira o ano do veículo' : null,
-                ),
-                Input(
-                  label: Text('Placa'),
-                  controller: _placaController,
-                  validator: (value) => value!.isEmpty ? 'Por favor, insira a placa do veículo' : null,
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final novoVeiculo = Veiculo(
-                        id: widget.vehicleId ?? '',
-                        nome: _nomeController.text,
-                        modelo: _modeloController.text,
-                        ano: _anoController.text,
-                        placa: _placaController.text,
-                      );
+      body: Container(
+        color: fundoSecundaria,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    'Média de Consumo: ${mediaConsumo ?? "Calculando..."}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  Input(
+                    label: Text('Nome'),
+                    controller: _nomeController,
+                    validator: (value) => value!.isEmpty ? 'Por favor, insira o nome do veículo' : null,
+                  ),
+                  Input(
+                    label: Text('Modelo'),
+                    controller: _modeloController,
+                    validator: (value) => value!.isEmpty ? 'Por favor, insira o modelo do veículo' : null,
+                  ),
+                  Input(
+                    label: Text('Ano'),
+                    controller: _anoController,
+                    validator: (value) => value!.isEmpty ? 'Por favor, insira o ano do veículo' : null,
+                  ),
+                  Input(
+                    label: Text('Placa'),
+                    controller: _placaController,
+                    validator: (value) => value!.isEmpty ? 'Por favor, insira a placa do veículo' : null,
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: botoesDestaque),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final novoVeiculo = Veiculo(
+                          id: widget.vehicleId ?? '',
+                          nome: _nomeController.text,
+                          modelo: _modeloController.text,
+                          ano: _anoController.text,
+                          placa: _placaController.text,
+                        );
 
-                      if (widget.vehicleId == null) {
-                        await controller.novoVeiculo(context, novoVeiculo);
-                      } else {
-                        await controller.atualizarVeiculo(widget.vehicleId!, novoVeiculo, context);
+                        if (widget.vehicleId == null) {
+                          await controller.novoVeiculo(context, novoVeiculo);
+                        } else {
+                          await controller.atualizarVeiculo(widget.vehicleId!, novoVeiculo, context);
+                        }
+
+                        Navigator.pop(context);
                       }
-
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text(widget.vehicleId == null ? 'Cadastrar' : 'Salvar'),
-                ),
-              ],
+                    },
+                    child: Text(
+                      widget.vehicleId == null ? 'Cadastrar' : 'Salvar',
+                      style: TextStyle(color: textoPrincipal),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

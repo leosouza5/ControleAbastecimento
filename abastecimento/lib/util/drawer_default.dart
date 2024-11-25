@@ -1,4 +1,6 @@
 import 'package:abastecimento/auth/pages/auth_screen.dart';
+import 'package:abastecimento/home/screens/home_screen.dart';
+import 'package:abastecimento/util/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -31,38 +33,51 @@ class DrawerDefault extends StatelessWidget {
     final email = user?.email ?? 'Usuário não identificado'; // Obtem o email ou uma mensagem padrão
 
     return Drawer(
+      backgroundColor: fundoPrincipal,
       child: ListView(
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: fundoSecundaria,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.account_circle, size: 64, color: Colors.white),
+                Icon(Icons.account_circle, size: 64, color: textoPrincipal),
                 SizedBox(height: 8),
                 Text(
                   'Bem-vindo!',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: textoPrincipal, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 4),
                 Text(
                   email, // Exibe o email do usuário
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                  style: TextStyle(color: textoPrincipal, fontSize: 14),
                 ),
               ],
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home, color: Theme.of(context).primaryColor),
-            title: Text('Home'),
-            onTap: () {},
+            leading: Icon(Icons.home, color: textoPrincipal),
+            title: Text(
+              'Home',
+              style: TextStyle(color: textoSecundario),
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                  ));
+            },
           ),
           ListTile(
-            leading: Icon(Icons.directions_car, color: Theme.of(context).primaryColor),
-            title: Text('Meus Veículos'),
+            leading: Icon(Icons.directions_car, color: textoPrincipal),
+            title: Text(
+              'Meus Veículos',
+              style: TextStyle(color: textoSecundario),
+            ),
             onTap: () {
               Navigator.pushReplacement(
                   context,
@@ -72,8 +87,11 @@ class DrawerDefault extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.add_circle, color: Theme.of(context).primaryColor),
-            title: Text('Adicionar Veículo'),
+            leading: Icon(Icons.add_circle, color: textoPrincipal),
+            title: Text(
+              'Adicionar Veículo',
+              style: TextStyle(color: textoSecundario),
+            ),
             onTap: () {
               Navigator.pushReplacement(
                   context,
@@ -83,8 +101,11 @@ class DrawerDefault extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.history, color: Theme.of(context).primaryColor),
-            title: Text('Histórico de Abastecimentos'),
+            leading: Icon(Icons.history, color: textoPrincipal),
+            title: Text(
+              'Histórico de Abastecimentos',
+              style: TextStyle(color: textoSecundario),
+            ),
             onTap: () {
               Navigator.pushReplacement(
                   context,
@@ -93,15 +114,13 @@ class DrawerDefault extends StatelessWidget {
                   ));
             },
           ),
-          ListTile(
-            leading: Icon(Icons.person, color: Theme.of(context).primaryColor),
-            title: Text('Perfil'),
-            onTap: () {},
-          ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.logout, color: Theme.of(context).primaryColor),
-            title: Text('Sair'),
+            leading: Icon(Icons.logout, color: textoPrincipal),
+            title: Text(
+              'Sair',
+              style: TextStyle(color: textoSecundario),
+            ),
             onTap: () {
               logout(context);
             },
