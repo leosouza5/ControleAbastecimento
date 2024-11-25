@@ -1,3 +1,4 @@
+import 'package:abastecimento/util/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../components/input.dart';
@@ -22,13 +23,11 @@ class RegisterScreen extends StatelessWidget {
         );
         Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
-        // Captura erros específicos do Firebase
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Erro ao cadastrar: ${e.message} CODIGO : ${e.code}")),
         );
         rethrow;
       } catch (e) {
-        // Captura erros genéricos
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Erro desconhecido: ${e.toString()}")),
         );
@@ -39,9 +38,15 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: fundoSecundaria,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: textoPrincipal),
+        backgroundColor: fundoPrincipal,
         centerTitle: true,
-        title: Text("Cadastrar"),
+        title: Text(
+          "Cadastrar",
+          style: TextStyle(color: textoPrincipal),
+        ),
       ),
       body: Center(
         child: Container(
@@ -78,8 +83,12 @@ class RegisterScreen extends StatelessWidget {
                     onPressed: () {
                       register(context);
                     },
-                    child: Text("Cadastrar"),
+                    child: Text(
+                      "Cadastrar",
+                      style: TextStyle(color: textoPrincipal),
+                    ),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: botoesDestaque,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       minimumSize: Size.fromHeight(70),
                     ),
@@ -91,7 +100,7 @@ class RegisterScreen extends StatelessWidget {
                   },
                   child: Text(
                     "Já possui uma conta? Faça login",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: textoPrincipal),
                   ),
                 )
               ],

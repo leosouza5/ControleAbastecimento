@@ -29,8 +29,8 @@ class DrawerDefault extends StatelessWidget {
 
   @override
   Drawer build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser; // Obtem o usuário autenticado
-    final email = user?.email ?? 'Usuário não identificado'; // Obtem o email ou uma mensagem padrão
+    final user = FirebaseAuth.instance.currentUser;
+    final email = user?.email ?? 'Usuário não identificado';
 
     return Drawer(
       backgroundColor: fundoPrincipal,
@@ -52,7 +52,7 @@ class DrawerDefault extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  email, // Exibe o email do usuário
+                  email,
                   style: TextStyle(color: textoPrincipal, fontSize: 14),
                 ),
               ],

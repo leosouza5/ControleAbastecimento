@@ -42,7 +42,7 @@ class _CarsState extends State<Cars> {
           itemCount: controller.veiculos.length,
           itemBuilder: (context, index) {
             final veiculo = controller.veiculos[index];
-            final vehicleId = veiculo.id; // Certifique-se de incluir o ID nos dados do veículo
+            final vehicleId = veiculo.id;
             return Card(
               margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: ListTile(
@@ -69,7 +69,6 @@ class _CarsState extends State<Cars> {
                         color: textoPrincipal,
                       ),
                       onPressed: () {
-                        // Navega para a tela de edição com os dados do veículo
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -84,7 +83,6 @@ class _CarsState extends State<Cars> {
                     IconButton(
                       icon: Icon(Icons.delete, color: corErro),
                       onPressed: () async {
-                        // Chama o método de exclusão
                         await controller.deletarVeiculo(vehicleId, context);
                       },
                     ),

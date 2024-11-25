@@ -86,7 +86,7 @@ class _NovoAbastecimentoState extends State<NovoAbastecimento> {
                       ),
                       items: _vehicles.map<DropdownMenuItem<String>>((vehicle) {
                         return DropdownMenuItem<String>(
-                          value: vehicle['id'], // Certifique-se de que 'id' seja do tipo String
+                          value: vehicle['id'],
                           child: Text('${vehicle['nome']} - ${vehicle['modelo']}'),
                         );
                       }).toList(),

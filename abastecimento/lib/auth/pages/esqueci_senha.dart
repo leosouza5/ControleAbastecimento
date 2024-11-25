@@ -1,5 +1,8 @@
+import 'package:abastecimento/auth/components/input.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../util/util.dart';
 
 class EsqueciSenha extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -27,8 +30,14 @@ class EsqueciSenha extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: fundoSecundaria,
       appBar: AppBar(
-        title: Text('Recuperar Senha'),
+        iconTheme: IconThemeData(color: textoPrincipal),
+        backgroundColor: fundoPrincipal,
+        title: Text(
+          'Recuperar Senha',
+          style: TextStyle(color: textoPrincipal),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,11 +52,11 @@ class EsqueciSenha extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
-              TextFormField(
+              Input(
                 controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                label: Text(
+                  "Email",
+                  style: TextStyle(color: textoPrincipal),
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -62,12 +71,16 @@ class EsqueciSenha extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: botoesDestaque),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _sendPasswordResetEmail(context);
                   }
                 },
-                child: Text('Enviar Email de Recuperação'),
+                child: Text(
+                  'Enviar Email de Recuperação',
+                  style: TextStyle(color: textoPrincipal),
+                ),
               ),
             ],
           ),
